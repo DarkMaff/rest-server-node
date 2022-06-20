@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors');
+const { dbConnection } = require('../database/config');
 
 class Server{
 
@@ -7,11 +8,17 @@ class Server{
         this.app = express();
         this.port = process.env.PORT;
         this.usuariosPath = '/api/usuarios';
+        //conectar a la base de datos
+        this.conectarDB();
         //Midlewares
         this.middlewares();
         //rutas de mik aplicación
         this.Routes();
 
+    }
+
+    async conectarDB(){
+        await dbConnection();
     }
 
 middlewares(){
